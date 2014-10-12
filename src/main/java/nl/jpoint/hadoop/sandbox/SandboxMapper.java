@@ -3,11 +3,15 @@ package nl.jpoint.hadoop.sandbox;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.io.IOException;
 
 public class SandboxMapper extends Mapper<LongWritable, Text, Text, Text> {
+
+	private static final Logger log = LoggerFactory.getLogger(SandboxMapper.class);
 
 	@Inject
 	private HelloWorldBean helloWorldBean;
@@ -20,7 +24,7 @@ public class SandboxMapper extends Mapper<LongWritable, Text, Text, Text> {
 
 	@Override
 	protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-		System.out.println("Hello " + helloWorldBean.getName() + ". Read [" + value.toString() + "]");
+		log.info("Hello {}.", helloWorldBean.getName());
 	}
 
 }
